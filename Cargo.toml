@@ -1,6 +1,7 @@
 [package]
-name = "oxCGen"
+name = "oxcgen"
 version = "0.1.0"
+edition = "2024"
 
-[[bin]]
-name = "oxCGen"
+[dependencies]
+rust-embed = "8.7.2"
