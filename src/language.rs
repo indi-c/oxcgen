@@ -1,14 +1,6 @@
-mod assets;
-
 use std::fs;
-use std::hash::Hash;
-use std::path::PathBuf;
-use std::string;
-// use rust_embed::RustEmbed;
-use std::collections::BTreeMap;
 
-const ROOT_PATH: &str = "templates/";
-
+#[derive(Clone)]
 pub struct Language<'a> {
     pub name: &'a str,
     pub description: &'a str,
@@ -22,7 +14,7 @@ pub trait MakeProject {
     fn initialize_git(&self);
 }
 
-impl MakeProject for Language {
+impl MakeProject for Language<'_> {
     fn make_project(&self, project_name: &str) -> Result<(), String> {
         self.create_dirs();
         self.copy_files();

@@ -1,5 +1,4 @@
 use rust_embed::RustEmbed;
-use std::fs;
 use paste::paste;
 
 // macro: takes a path to a folder and the language name
@@ -9,15 +8,16 @@ use paste::paste;
 macro_rules! embed_templates {
     // example usage:
     // embed_templates!("rust", "rust");
-    // embed_templates!("rust/src", "rust");
     ($path:expr, $lang:expr) => {
         paste! {
             #[derive(RustEmbed)]
-            #[folder = [<"templates/" $path>]]
+            #[folder = [<"templates/" $path> "/"]]
             #[prefix = [<$lang, "/">]]
             pub struct [<$lang "_assets">];
         }
     }
 }
 
-embed_templates!("rust", "rust");
+enum Templates {
+    
+}

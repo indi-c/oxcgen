@@ -2,8 +2,8 @@ use std::collections::BTreeMap;
 
 use crate::commands;
 
-fn get_command_list() -> BTreeMap<&str, commands::Command> {
+fn get_command_list<'a>() -> BTreeMap<String, commands::Command<'a>> {
     BTreeMap::from([
-        ("init", commands::INIT),
+        ("init".to_string(), commands::INIT),
     ])
 }

@@ -1,22 +1,27 @@
-use crate::init_languages;
+use crate::supported_languages;
+use crate::language::{ Language, MakeProject };
 use std::collections::BTreeMap;
+
 
 pub struct Command<'a> {
     pub name: &'a str,
     pub description: &'a str,
-    pub args: Option<BTreeMap<&'a str, init_languages::Language<'a>>>,
+    pub args: [(&'a str, Language<'a>); supported_languages::NUMBER_OF_LANGUAGES],
 }
 
 pub trait CommandExecutor {
     fn execute(&self, argument: &str) -> Result<(), String>;
 }
 
-impl CommandExecutor for Command {
+impl<'a> CommandExecutor for Command<'a> {
     fn execute(&self, argument: &str) -> Result<(), String> {
         match self.name {
-            "init" => self.args.as_ref().get(argument)
-                .map(|lang| lang.make_project(argument))
-                .unwrap_or_else(|| Err(format!("Unsupported language: {}", argument))),
+            "init" => {
+                let lang_map: BTreeMap<&str, Language> = BTreeMap::from(self.args.clone());
+                lang_map.get(argument)
+                    .map(|lang| lang.make_project("test"))
+                    .unwrap_or_else(|| Err(format!("[*] {} not implemented", argument)))
+            }
             _ => Err(format!("Command '{}' is not implemented", self.name)),
         }
     }
@@ -25,5 +30,5 @@ impl CommandExecutor for Command {
 pub const INIT: Command = Command {
     name: "init",
     description: "Initialize the project",
-    args: init_languages::SUPPORTED_LANGUAGES.clone(),
+    args: supported_languages::SUPPORTED_LANGUAGES,
 };
