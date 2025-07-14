@@ -3,7 +3,6 @@ use std::fs;
 #[derive(Clone)]
 pub struct Language<'a> {
     pub name: &'a str,
-    pub description: &'a str,
 } 
 
 pub trait MakeProject {

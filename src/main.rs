@@ -1,6 +1,5 @@
 use std::env;
 
-mod assets;
 mod commands;
 mod command_list;
 mod language;

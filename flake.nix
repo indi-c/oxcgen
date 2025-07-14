@@ -10,7 +10,10 @@
       systems = [ "x86_64-linux" ];
       perSystem = { config, self', pkgs, lib, system, ... }:
         let
-          runtimeDeps = with pkgs; [];
+          runtimeDeps = with pkgs; [ 
+            cargo-vet
+            cargo-expand
+          ];
           buildDeps = with pkgs; [];
           devDeps = with pkgs; [ gdb ];
 

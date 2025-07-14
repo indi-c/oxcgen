@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 rust-embed = { version = "8.7.2", features = ["debug-embed"] }
 paste = "1.0.15"
+assets_macro = { path = "assets_macro" }
