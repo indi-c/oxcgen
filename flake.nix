@@ -26,7 +26,19 @@
               rustc = pkgs.rust-bin.stable.latest.default;
             }).buildRustPackage {
               inherit (cargoToml.package) name version;
-              src = ./.;
+              src = pkgs.lib.cleanSourceWith {
+                src = ./.;
+                filter = path: type:
+                  let
+                    rel = pkgs.lib.removePrefix (toString ./. + "/") (toString path);
+                  in
+                    (builtins.match "src(/.*)?" rel) != null ||
+                    (builtins.match "templates(/.*)?" rel) != null ||
+                    (builtins.match "assets_macro(/.*)?" rel) != null ||
+                    rel == "Cargo.toml" ||
+                    rel == "Cargo.lock";
+              };
+              
               cargoLock.lockFile = ./Cargo.lock;
               buildFeatures = features;
               buildInputs = runtimeDeps;

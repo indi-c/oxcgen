@@ -34,3 +34,9 @@ pub const INIT: Command = Command {
     description: "Initialize the project",
     args: supported_languages::SUPPORTED_LANGUAGES,
 };
+
+pub const HELP: Command = Command {
+    name: "help",
+    description: "Display help information",
+    args: supported_languages::SUPPORTED_LANGUAGES,
+};

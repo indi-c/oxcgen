@@ -1,6 +1,7 @@
 use crate::language::Language;
 use paste::paste;
-use rust_embed::RustEmbed;
+use rust_embed::Embed;
+use std::borrow::Cow;
 
 pub const NUMBER_OF_LANGUAGES: usize = 1;
 
@@ -38,6 +39,18 @@ macro_rules! define_languages {
                             }
                         },
                         _ => None,
+                    )*
+                }
+            }
+
+            pub fn iter(&self) -> impl Iterator<Item = Cow<'static, str>> {
+                match self {
+                    $(
+                        Assets::$lang => {
+                            paste! {
+                                [<$lang Assets>]::iter()
+                            }
+                        },
                     )*
                 }
             }

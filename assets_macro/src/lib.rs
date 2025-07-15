@@ -14,9 +14,8 @@ pub fn make_asset(input: TokenStream) -> TokenStream {
 
     let expanded = quote! {
         paste::paste! {
-            #[derive(rust_embed::RustEmbed)]
+            #[derive(rust_embed::Embed)]
             #[folder = #folder_path]
-            #[prefix = concat!(stringify!(#ident), "/")]
             pub struct [< #ident Assets>];
         }
     };
