@@ -1,1 +1,5 @@
 /target
+/result
+/supply-chain
+/.envrc
+/result/*
