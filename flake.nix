@@ -73,10 +73,10 @@
             overlays = [ (import inputs.rust-overlay) ];
           };
 
-          packages.default = self'.packages.oxCGen;
+          packages.default = self'.packages.oxcgen;
           devShells.default = self'.devShells.stable;
 
-          packages.oxCGen = (rustPackage "");
+          packages.oxcgen = (rustPackage "");
 
           apps.vet = {
             type = "app";
